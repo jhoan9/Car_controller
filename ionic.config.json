@@ -1,0 +1,7 @@
+{
+  "name": "carController",
+  "integrations": {
+    "capacitor": {}
+  },
+  "type": "react"
+}
