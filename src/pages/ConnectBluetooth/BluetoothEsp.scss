@@ -1,0 +1,54 @@
+.wrapper {
+  align-items: center;
+  display: flex;
+  justify-content: center;
+  .wrapper-buttons {
+    background-color: #EEEEEE;
+    border-radius: 10px;
+    text-align: center;
+    width: 50%;
+    .arrow {
+      display: flex;
+      height: 120px;
+      justify-content: center;
+      .button {
+        color: black;
+        font-size: 100px;
+        margin: 10px 10px 10px 10px;
+        position: relative;
+        border: none; /* eliminar borde */
+        margin: 4px 2px; /* margen */
+        cursor: pointer; /* cambiar el cursor al pasar el mouse */
+      }
+      
+      .button:active {
+        border-radius: 50px;
+        background-color: #B0B0AE; /* color de fondo cuando se presiona el botón */
+        box-shadow: 0 5px #666; /* efecto de sombra al presionar */
+        transform: translateY(4px); /* mover hacia abajo al presionar */
+      }
+    }
+  }
+
+  .center-button {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    .center {
+      color: black;
+      margin: 0 auto;
+      border-radius: 50px;
+      height: 100px;
+      width: 100px;
+      text-align: center;
+      line-height: 100px;
+    }
+    .center:active {
+      border-radius: 50px;
+      background-color: #B0B0AE; /* color de fondo cuando se presiona el botón */
+      box-shadow: 0 5px #666; /* efecto de sombra al presionar */
+      transform: translateY(4px); /* mover hacia abajo al presionar */
+    }
+  }
+}
