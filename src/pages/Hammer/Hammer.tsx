@@ -18,7 +18,7 @@ import microphoneStart from "./mic-outline.svg";
 import microphoneEnd from "./mic-off-outline.svg";
 import { useEffect, useState } from "react";
 import { RecordingData, VoiceRecorder } from "capacitor-voice-recorder";
-import { ref, set, update } from "firebase/database";
+import { ref, update } from "firebase/database";
 import { database } from "../../Database/config";
 
 interface dataText {
@@ -54,7 +54,7 @@ const Hammer: React.FC = () => {
 
   const consumeApiGoogle = async (id: string) => {
     try {
-      const apiKey = "AIzaSyBHIM-I9nk29JZR0YjwNaGJ_K1QewWsUQ0"; // Replace with your API key
+      const apiKey = "API_KEY"; // Replace with your API key
       const HttpBody1 = JSON.stringify({
         config: {
           encoding: "ENCODING_UNSPECIFIED",
