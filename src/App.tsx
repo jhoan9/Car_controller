@@ -10,8 +10,9 @@ import {
   setupIonicReact
 } from '@ionic/react';
 import { IonReactRouter } from '@ionic/react-router';
-import { square } from 'ionicons/icons';
+import { hammer, square } from 'ionicons/icons';
 import BluetoothEsp from './pages/ConnectBluetooth/BluetoothEsp'
+import Hammer from './pages/Hammer/Hammer';
 
 /* Core CSS required for Ionic components to work properly */
 import '@ionic/react/css/core.css';
@@ -42,6 +43,9 @@ const App: React.FC = () => (
           <Route exact path="/connectEsp32">
             <BluetoothEsp />
           </Route>
+          <Route exact path="/hammer">
+            <Hammer />
+          </Route>
           <Route exact path="/">
             <Redirect to="/tab1" />
           </Route>
@@ -50,6 +54,10 @@ const App: React.FC = () => (
           <IonTabButton tab="connectEsp32" href="/connectEsp32">
             <IonIcon aria-hidden="true" icon={square} />
             <IonLabel>Car Controller</IonLabel>
+          </IonTabButton>
+          <IonTabButton tab="hammer" href="/hammer">
+            <IonIcon aria-hidden="true" icon={hammer} />
+            <IonLabel>Hammer</IonLabel>
           </IonTabButton>
         </IonTabBar>
       </IonTabs>
