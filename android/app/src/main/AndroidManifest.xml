@@ -2,6 +2,7 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="car.controller.app">
 
+<<<<<<< HEAD
     <queries>
         <intent>
             <action android:name="android.intent.action.TTS_SERVICE" />
@@ -11,6 +12,8 @@
         </intent>
     </queries>
 
+=======
+>>>>>>> a7203bd9cfa320d027c59cb5a8253e8364e49285
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"

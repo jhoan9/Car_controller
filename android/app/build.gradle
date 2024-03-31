@@ -4,8 +4,13 @@ android {
     compileSdkVersion rootProject.ext.compileSdkVersion
     defaultConfig {
         applicationId "car.controller.app"
+<<<<<<< HEAD
         minSdkVersion rootProject.ext.minSdkVersion
         targetSdkVersion rootProject.ext.targetSdkVersion
+=======
+        minSdk 33
+        targetSdk 33
+>>>>>>> a7203bd9cfa320d027c59cb5a8253e8364e49285
         versionCode 1
         versionName "1.0"
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"

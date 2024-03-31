@@ -11,7 +11,11 @@ import {
 } from '@ionic/react';
 import { IonReactRouter } from '@ionic/react-router';
 import { hammer, square } from 'ionicons/icons';
+<<<<<<< HEAD
 import BluetoothEsp from './pages/ConnectBluetooth/BluetoothEsp'
+=======
+import BluetoothEsp from './pages/ConnectBluetooth/BluetoothEsp';
+>>>>>>> a7203bd9cfa320d027c59cb5a8253e8364e49285
 import Hammer from './pages/Hammer/Hammer';
 
 /* Core CSS required for Ionic components to work properly */
@@ -40,6 +44,9 @@ const App: React.FC = () => (
     <IonReactRouter>
       <IonTabs>
         <IonRouterOutlet>
+          <Route exact path="/hammer">
+            <Hammer />
+          </Route>
           <Route exact path="/connectEsp32">
             <BluetoothEsp />
           </Route>
