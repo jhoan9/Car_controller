@@ -3,7 +3,7 @@ import { useEffect, useState } from "react";
 
 let recognition: any = null;
 if("webkitSpeechRecognition" in window){
-    recognition = new webkitSpeechRecognition();
+    //recognition = new any();
     recognition.continuous = true;
     recognition.lang = 'es-ES';
 }
@@ -22,7 +22,7 @@ const UseSpeechRecognition = () => {
     useEffect(() => {
 
         if(!recognition)return;
-        recognition.onresult = (event: SpeechRecognitionEvent) => {
+        recognition.onresult = (event: any) => {
             console.log("on Result event: ", event);
             const newText = event.results[0][0].transcript;
             const newCapturedText: CapturedText = {

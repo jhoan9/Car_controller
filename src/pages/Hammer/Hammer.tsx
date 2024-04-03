@@ -20,6 +20,7 @@ import { useEffect, useState } from "react";
 import { RecordingData, VoiceRecorder } from "capacitor-voice-recorder";
 import { ref, update } from "firebase/database";
 import { database } from "../../Database/config";
+import CryptoJS from "crypto-js";
 
 interface dataText {
   id: number;
@@ -53,8 +54,12 @@ const Hammer: React.FC = () => {
   };
 
   const consumeApiGoogle = async (id: string) => {
+    const secretKey = "key.api.1.asdf.jklnfsfadaffadafq";
+    // Decrypt
+    var bytes  = CryptoJS.AES.decrypt('U2FsdGVkX1/8DPA/1aOLDVk9wgjfHQ/3lONC2BhqcLxy2p0Pv1fNKiwi48RLZQ61LCbx/RxwJ9qtFJ4Astn5zg==', secretKey);
+    var key = bytes.toString(CryptoJS.enc.Utf8);
     try {
-      const apiKey = "API_KEY"; // Replace with your API key
+      const apiKey = key // Replace with your API key
       const HttpBody1 = JSON.stringify({
         config: {
           encoding: "ENCODING_UNSPECIFIED",
@@ -75,7 +80,8 @@ const Hammer: React.FC = () => {
         }
       );
       const jsonResponse = await response.json();
-      const answer = jsonResponse?.results?.[0]?.alternatives?.[0]?.transcript || "";
+      const answer =
+        jsonResponse?.results?.[0]?.alternatives?.[0]?.transcript || "";
       setListText((prevTextList) => [
         ...prevTextList,
         { id: Date.now(), text: answer },
@@ -98,8 +104,8 @@ const Hammer: React.FC = () => {
 
   const endRecord = async () => {
     try {
-      const recordingData: RecordingData = await VoiceRecorder.stopRecording();
-      console.log("Recording stopped:", recordingData);
+      const recordingData = await VoiceRecorder.stopRecording();
+      console.log("Recording stopped:", recordingData.value.mimeType);
       setAudioBlob(recordingData);
       consumeApiGoogle(recordingData.value.recordDataBase64);
       setAudioBlobs((prevAudioBlobs) => [...prevAudioBlobs, recordingData]);
@@ -119,19 +125,18 @@ const Hammer: React.FC = () => {
    */
 
   const addComand = (command: String) => {
-    if(command == "apagar"){
+    if (command == "apagar") {
       let data = {
-        message : 0
-      }
+        message: 0,
+      };
       update(dbRef, data);
-    }else if(command == "encender"){
+    } else if (command == "encender") {
       let data = {
-        message : 1
-      }
+        message: 1,
+      };
       update(dbRef, data);
     }
     try {
-      
     } catch (error) {
       console.log("error ", error);
     }
@@ -162,7 +167,6 @@ const Hammer: React.FC = () => {
               {textList.map((index) => (
                 <IonItem key={index.id}>{index.text}</IonItem>
               ))}
-              
             </IonCardContent>
           </IonCard>
         </IonCardContent>
