@@ -27,6 +27,17 @@ interface dataText {
   text: string;
 }
 
+interface speechToText {
+  config: {
+    encoding: string;
+    sampleRateHertz: number;
+    languageCode: string;
+  };
+  audio: {
+    content: string;
+  };
+}
+
 const connectionConfig = {
   timeout: 10000, // tiempo de espera de 10 segundos
 };
@@ -53,32 +64,36 @@ const Hammer: React.FC = () => {
     }
   };
 
-  const consumeApiGoogle = async (id: string) => {
+  const consumeApiGoogle = async (idBase64: string) => {
+    const contentBase64: string = idBase64;
     const secretKey = "key.api.1.asdf.jklnfsfadaffadafq";
     // Decrypt
-    var bytes  = CryptoJS.AES.decrypt('U2FsdGVkX1/8DPA/1aOLDVk9wgjfHQ/3lONC2BhqcLxy2p0Pv1fNKiwi48RLZQ61LCbx/RxwJ9qtFJ4Astn5zg==', secretKey);
+    var bytes = CryptoJS.AES.decrypt(
+      "U2FsdGVkX1/8DPA/1aOLDVk9wgjfHQ/3lONC2BhqcLxy2p0Pv1fNKiwi48RLZQ61LCbx/RxwJ9qtFJ4Astn5zg==",
+      secretKey
+    );
     var key = bytes.toString(CryptoJS.enc.Utf8);
     try {
-      const apiKey = key // Replace with your API key
-      const HttpBody1 = JSON.stringify({
+      const apiKey = key; // Replace with your API key
+      const req: speechToText = {
         config: {
-          encoding: "ENCODING_UNSPECIFIED",
-          sampleRateHertz: 48000,
+          encoding: "AMR_WB",
+          sampleRateHertz: 16000,
           languageCode: "es-ES",
         },
-        audio: { content: id },
-      });
-      console.log("HttpBody1 ", id);
+        audio: { content: contentBase64 },
+      };
+
+      console.log("Req .. ", JSON.stringify(req))
       const response = await fetch(
         `https://speech.googleapis.com/v1/speech:recognize?key=${apiKey}`,
         {
           method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: HttpBody1,
+          body: JSON.stringify(req)
         }
       );
+
+      console.log("jsonResponse 1 ", JSON.stringify(response));
       const jsonResponse = await response.json();
       const answer =
         jsonResponse?.results?.[0]?.alternatives?.[0]?.transcript || "";
@@ -86,7 +101,15 @@ const Hammer: React.FC = () => {
         ...prevTextList,
         { id: Date.now(), text: answer },
       ]);
+
       addComand(answer);
+     
+      setTimeout(() => {
+        let data = {
+          message: 0,
+        };
+        update(dbRef, data);
+      }, 1000);
     } catch (error) {
       console.error("Error al realizar la solicitud:", error);
     }
@@ -125,12 +148,7 @@ const Hammer: React.FC = () => {
    */
 
   const addComand = (command: String) => {
-    if (command == "apagar") {
-      let data = {
-        message: 0,
-      };
-      update(dbRef, data);
-    } else if (command == "encender") {
+   if (command == "encender") {
       let data = {
         message: 1,
       };
